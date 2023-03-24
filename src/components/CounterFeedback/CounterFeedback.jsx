@@ -16,16 +16,37 @@ class CounterFeedback extends React.Component {
     goodValue: 0,
     neutralValue: 0,
     badValue: 0,
+    totalValue: 0,
+    positivePercentageValue: 0,
   };
 
   handleIncrementGood = () => {
     this.setState(prevState => ({ goodValue: prevState.goodValue + 1 }));
+    this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
   handleIncrementNeutral = () => {
     this.setState(prevState => ({ neutralValue: prevState.neutralValue + 1 }));
+    this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
   handleIncrementBad = () => {
     this.setState(prevState => ({ badValue: prevState.badValue + 1 }));
+    this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
+  };
+  countTotalFeedback = () => {
+    this.setState(prevState => ({
+      totalValue:
+        prevState.goodValue + prevState.neutralValue + prevState.badValue,
+    }));
+  };
+  countPositiveFeedbackPercentage = () => {
+    this.setState(prevState => ({
+      positivePercentageValue: Math.round(
+        (prevState.goodValue / prevState.totalValue) * 100
+      ),
+    }));
   };
 
   render() {
@@ -57,6 +78,15 @@ class CounterFeedback extends React.Component {
             <StatisticsItem>
               Bad: <StatisticsSpan>{this.state.badValue}</StatisticsSpan>
             </StatisticsItem>
+            <StatisticsItem>
+              Total: <StatisticsSpan>{this.state.totalValue}</StatisticsSpan>
+            </StatisticsItem>
+            <StatisticsItem>
+              Positive feedback:{' '}
+              <StatisticsSpan>
+                {this.state.positivePercentageValue}%
+              </StatisticsSpan>
+            </StatisticsItem>
           </StatisticsList>
         </StatisticsWrapp>
       </>
@@ -64,31 +94,4 @@ class CounterFeedback extends React.Component {
   }
 }
 
-// const CounterFeedback = () => {
-//   return (
-//     <>
-//       <FeedbackWrapp>
-//         <FeedbackTitle>Please leave feedback</FeedbackTitle>
-//         <Button>Good</Button>
-//         <Button>Neutral</Button>
-//         <Button>Bad</Button>
-//       </FeedbackWrapp>
-
-//       <StatisticsWrapp>
-//         <StatisticsTitle>Statistics</StatisticsTitle>
-//         <StatisticsList>
-//           <StatisticsItem>
-//             Good: <StatisticsSpan>0</StatisticsSpan>
-//           </StatisticsItem>
-//           <StatisticsItem>
-//             Neutral: <StatisticsSpan>0</StatisticsSpan>
-//           </StatisticsItem>
-//           <StatisticsItem>
-//             Bad: <StatisticsSpan>0</StatisticsSpan>
-//           </StatisticsItem>
-//         </StatisticsList>
-//       </StatisticsWrapp>
-//     </>
-//   );
-// };
 export default CounterFeedback;
