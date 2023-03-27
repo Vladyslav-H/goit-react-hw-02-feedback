@@ -1,6 +1,6 @@
 import Section from '../Section/Section';
 import Notification from '../Notification/Notification';
-import { Statistics } from 'components/Statistics/Statistics';
+import Statistics from '../Statistics/Statistics';
 import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { StatisticsWrapp, StatisticsTitle } from './App.styled';
 
@@ -35,6 +35,8 @@ export class App extends Component {
   };
 
   render() {
+    const total = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
     const btnNames = Object.keys(this.state);
 
     return (
@@ -50,8 +52,8 @@ export class App extends Component {
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+              total={total}
+              positivePercentage={positivePercentage}
             />
           ) : (
             <Notification message="There is no feedback" />

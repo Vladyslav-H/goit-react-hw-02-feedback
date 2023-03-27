@@ -1,37 +1,41 @@
+import PropTypes from 'prop-types';
+
 import {
   StatisticsList,
   StatisticsItem,
   StatisticsSpan,
 } from './Statistics.styled';
 
-import { Component } from 'react';
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
+  return (
+    <StatisticsList>
+      <StatisticsItem>
+        Good: <StatisticsSpan>{good}</StatisticsSpan>
+      </StatisticsItem>
+      <StatisticsItem>
+        Neutral: <StatisticsSpan>{neutral}</StatisticsSpan>
+      </StatisticsItem>
+      <StatisticsItem>
+        Bad: <StatisticsSpan>{bad}</StatisticsSpan>
+      </StatisticsItem>
 
-export class Statistics extends Component {
-  
+      <StatisticsItem>
+        Total: <StatisticsSpan>{total}</StatisticsSpan>
+      </StatisticsItem>
+      <StatisticsItem>
+        Positive feedback:{' '}
+        <StatisticsSpan>{positivePercentage}%</StatisticsSpan>
+      </StatisticsItem>
+    </StatisticsList>
+  );
+};
 
-  render() {
-    const { good, neutral, bad, total, positivePercentage } = this.props;
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+};
 
-    return (
-      <StatisticsList>
-        <StatisticsItem>
-          Good: <StatisticsSpan>{good}</StatisticsSpan>
-        </StatisticsItem>
-        <StatisticsItem>
-          Neutral: <StatisticsSpan>{neutral}</StatisticsSpan>
-        </StatisticsItem>
-        <StatisticsItem>
-          Bad: <StatisticsSpan>{bad}</StatisticsSpan>
-        </StatisticsItem>
-
-        <StatisticsItem>
-          Total: <StatisticsSpan>{total}</StatisticsSpan>
-        </StatisticsItem>
-        <StatisticsItem>
-          Positive feedback:{' '}
-          <StatisticsSpan>{positivePercentage}%</StatisticsSpan>
-        </StatisticsItem>
-      </StatisticsList>
-    );
-  }
-}
+export default Statistics;
