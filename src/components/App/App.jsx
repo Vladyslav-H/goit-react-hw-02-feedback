@@ -2,7 +2,7 @@ import Section from '../Section/Section';
 import Notification from '../Notification/Notification';
 import { Statistics } from 'components/Statistics/Statistics';
 import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
-import { StatisticsWrapp,StatisticsTitle } from './App.styled';
+import { StatisticsWrapp, StatisticsTitle } from './App.styled';
 
 import { Component } from 'react';
 
@@ -27,7 +27,7 @@ export class App extends Component {
 
   onLeaveFeedback = e => {
     const currentBtnValue = e.target.value;
-    
+
     this.setState(prevState => ({
       ...prevState,
       [currentBtnValue]: prevState[currentBtnValue] + 1,
@@ -38,14 +38,13 @@ export class App extends Component {
     const btnNames = Object.keys(this.state);
 
     return (
-      <>
-        <Section title={'Please leave feedback'}></Section>
+      <Section title={'Please leave feedback'}>
         <FeedbackOptions
           options={btnNames}
           onLeaveFeedback={this.onLeaveFeedback}
         />
         <StatisticsWrapp>
-           <StatisticsTitle>Statistics</StatisticsTitle>
+          <StatisticsTitle>Statistics</StatisticsTitle>
           {this.countTotalFeedback() ? (
             <Statistics
               good={this.state.good}
@@ -58,8 +57,7 @@ export class App extends Component {
             <Notification message="There is no feedback" />
           )}
         </StatisticsWrapp>
-        
-      </>
+      </Section>
     );
   }
 }
